@@ -1,36 +1,14 @@
 Bootstrap: docker
-From: ubuntu:jammy
-Stage: build
-
-%post
-  ## Download build prerequisites
-  apt-get update
-  apt-get -y install git make build-dependency1
-  
-  ## Build
-  cd /opt
-  git clone URL
-  make
-
-Bootstrap: docker
-From: ubuntu:jammy
-Stage: final
+From: google/deepvariant:1.0.0
 
 %labels
-Maintainer @plantandfood.co.nz
-Version 
-
-%files from build
-  /opt/URL/bin/tool /usr/local/bin/
+Maintainer Ben.Warren@plantandfood.co.nz
+Version 1.0.0
 
 %runscript
-  exec tool "$@"
-
-==OR==
-
-if [ -x /usr/local/bin/$SINGULARITY_NAME ]; then
-    exec $SINGULARITY_NAME "$@"
+if [ -x /opt/deepvariant/bin/$SINGULARITY_NAME ]; then
+    exec /opt/deepvariant/bin/$SINGULARITY_NAME "$@"
 else
   /bin/echo -e "This Singularity image cannot provide a single entrypoint. Please use \"singularity exec $SINGULARITY_NAME <cmd>\", where <cmd> is one of the following:\n"
-  exec ls /usr/local/bin
+  exec ls /opt/deepvariant/bin
 fi
