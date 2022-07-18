@@ -1,1 +1,1 @@
-Singularity.1.0.0
+Singularity.1.4.0-gpu
